@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Bean for service -->
+    <bean id="textService" class="com.example.TextService" />
+
+    <!-- Bean for printer with dependency injected -->
+    <bean id="messagePrinter" class="com.example.MessagePrinter">
+        <property name="textService" ref="textService" />
+    </bean>
+</beans>

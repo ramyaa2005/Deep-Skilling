@@ -23,9 +23,9 @@ public class AuthController {
         // Check for correct credentials (hardcoded)
         if ("user".equals(request.getUsername()) && "pass".equals(request.getPassword())) {
             String token = jwtService.generateToken(request.getUsername());
-            return ResponseEntity.ok(token); // ✅ Success: return JWT
+            return ResponseEntity.ok(token); 
         } else {
-            return ResponseEntity.status(401).body("Invalid credentials"); // ❌ Failure
+            return ResponseEntity.status(401).body("Invalid credentials"); 
         }
     }
 }

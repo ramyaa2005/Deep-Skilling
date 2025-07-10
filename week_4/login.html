@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JWT Login</title>
+</head>
+<body>
+    <h2>JWT Login</h2>
+
+    <form onsubmit="login(event)">
+        <label>Username:</label><br>
+        <input type="text" id="username" value="user"><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" id="password" value="pass"><br><br>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <h3>JWT Response:</h3>
+    <textarea id="response" rows="6" cols="70"></textarea>
+
+    <script>
+        function login(event) {
+            event.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            fetch("/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(async response => {
+                const text = await response.text();
+                if (!response.ok) {
+                    throw new Error(text); // Show error message from backend
+                }
+                document.getElementById("response").value = text;
+            })
+            .catch(error => {
+                document.getElementById("response").value = "Error: " + error.message;
+            });
+        }
+    </script>
+</body>
+</html>

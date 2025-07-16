@@ -1,3 +1,4 @@
+//discovery-server
 server:
   port: 8761
 
@@ -8,4 +9,30 @@ spring:
 eureka:
   client:
     register-with-eureka: true     
-    fetch-registry: true          
+    fetch-registry: true     
+    //for loan,account,api-gateway
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: account-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/account/**
+        - id: loan-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/loan/**
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
